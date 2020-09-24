@@ -4,7 +4,7 @@
 #
 Name     : audacious
 Version  : 3.10.1
-Release  : 2
+Release  : 3
 URL      : https://distfiles.audacious-media-player.org/audacious-3.10.1.tar.bz2
 Source0  : https://distfiles.audacious-media-player.org/audacious-3.10.1.tar.bz2
 Summary  : Audacious is a versatile and handy multi platform media player
