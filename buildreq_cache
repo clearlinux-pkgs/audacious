@@ -1,3 +1,4 @@
-4.0.5
+4.1
 glib-dev
+gtk+-dev
 pkgconfig(Qt5Core)
