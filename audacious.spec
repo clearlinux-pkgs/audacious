@@ -4,7 +4,7 @@
 #
 Name     : audacious
 Version  : 4.2
-Release  : 6
+Release  : 7
 URL      : https://distfiles.audacious-media-player.org/audacious-4.2.tar.bz2
 Source0  : https://distfiles.audacious-media-player.org/audacious-4.2.tar.bz2
 Summary  : Audacious is a versatile and handy multi platform media player
@@ -13,13 +13,17 @@ License  : BSD-3-Clause
 Requires: audacious-bin = %{version}-%{release}
 Requires: audacious-data = %{version}-%{release}
 Requires: audacious-lib = %{version}-%{release}
+Requires: audacious-license = %{version}-%{release}
 Requires: audacious-locales = %{version}-%{release}
 Requires: audacious-man = %{version}-%{release}
 BuildRequires : buildreq-meson
 BuildRequires : glib-dev
 BuildRequires : gtk+-dev
 BuildRequires : pkgconfig(Qt5Core)
+BuildRequires : pkgconfig(glib-2.0)
+BuildRequires : pkgconfig(gtk+-2.0)
 BuildRequires : pkgconfig(libarchive)
+BuildRequires : qttools-dev
 
 %description
 These SVG files have been un-optimized to work around the following librsvg bug:
@@ -29,6 +33,7 @@ https://bugzilla.gnome.org/show_bug.cgi?id=620923
 Summary: bin components for the audacious package.
 Group: Binaries
 Requires: audacious-data = %{version}-%{release}
+Requires: audacious-license = %{version}-%{release}
 
 %description bin
 bin components for the audacious package.
@@ -59,9 +64,18 @@ dev components for the audacious package.
 Summary: lib components for the audacious package.
 Group: Libraries
 Requires: audacious-data = %{version}-%{release}
+Requires: audacious-license = %{version}-%{release}
 
 %description lib
 lib components for the audacious package.
+
+
+%package license
+Summary: license components for the audacious package.
+Group: Default
+
+%description license
+license components for the audacious package.
 
 
 %package locales
@@ -89,19 +103,26 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1657901937
+export SOURCE_DATE_EPOCH=1657908173
 export GCC_IGNORE_WERROR=1
 export CFLAGS="$CFLAGS -fno-lto "
 export FCFLAGS="$FFLAGS -fno-lto "
 export FFLAGS="$FFLAGS -fno-lto "
 export CXXFLAGS="$CXXFLAGS -fno-lto "
-%configure --disable-static
-make  %{?_smp_mflags}
+CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
+ninja -v -C builddir
+
+%check
+export LANG=C.UTF-8
+export http_proxy=http://127.0.0.1:9/
+export https_proxy=http://127.0.0.1:9/
+export no_proxy=localhost,127.0.0.1,0.0.0.0
+meson test -C builddir --print-errorlogs
 
 %install
-export SOURCE_DATE_EPOCH=1657901937
-rm -rf %{buildroot}
-%make_install
+mkdir -p %{buildroot}/usr/share/package-licenses/audacious
+cp %{_builddir}/audacious-4.2/COPYING %{buildroot}/usr/share/package-licenses/audacious/7beaa4aee0251ea66d34eadaea08e177e5204799
+DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang audacious
 
 %files
@@ -180,6 +201,10 @@ rm -rf %{buildroot}
 /usr/lib64/libaudqt.so.2.4.0
 /usr/lib64/libaudtag.so.3
 /usr/lib64/libaudtag.so.3.0.0
+
+%files license
+%defattr(0644,root,root,0755)
+/usr/share/package-licenses/audacious/7beaa4aee0251ea66d34eadaea08e177e5204799
 
 %files man
 %defattr(0644,root,root,0755)

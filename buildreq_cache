@@ -1,4 +1,6 @@
 4.2
 glib-dev
 gtk+-dev
-pkgconfig(Qt5Core)
+pkgconfig(glib-2.0)
+pkgconfig(gtk+-2.0)
+qttools-dev

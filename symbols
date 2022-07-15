@@ -484,7 +484,6 @@ libaudgui.so.5:_Z32audgui_list_row_at_point_roundedP10_GtkWidgetii
 libaudgui.so.5:_Z32audgui_menu_item_new_with_domainPK14AudguiMenuItemP14_GtkAccelGroupPKc
 libaudgui.so.5:_Z33audgui_show_prefs_for_plugin_type10PluginType
 libaudgui.so.5:_Z35audgui_urilist_create_from_selected8Playlist
-libaudgui.so.5:images_get_resource
 libaudqt.so.2:_ZN5audqt10InfoWidget10revertInfoEv
 libaudqt.so.2:_ZN5audqt10InfoWidget10updateFileEv
 libaudqt.so.2:_ZN5audqt10InfoWidget11linkEnabledEP7QWidget
