@@ -1,6 +1,6 @@
-4.3
+4.4.2
 glib-dev
-gtk+-dev
 pkgconfig(glib-2.0)
-pkgconfig(gtk+-2.0)
-qttools-dev
+pkgconfig(gtk+-3.0)
+qt6tools-dev
+qtdeclarative-dev
